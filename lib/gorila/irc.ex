@@ -7,7 +7,7 @@ defmodule Gorila.Irc do
   If the string contains a IRC message, it iwll be parsed into a Message
   record. Otherwise this function will return NIL.
   """
-  @spec parse(string) :: Message
+  @spec parse(String) :: Message
   def parse(string) when is_binary(string) do
     {_, pattern} = Regex.compile(
       "\\A(?::(\\S+)\\s*)?([A-Za-z]+|\\d{3})((?:\\s+[^:\\s]\\S*)*)(?:\\s+:(.*?))?\\s*?\\r?\\n",
