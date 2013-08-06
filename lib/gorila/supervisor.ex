@@ -7,9 +7,10 @@ defmodule Gorila.Supervisor do
 
   def init([]) do
     children = [
-      worker(Gorila.Worker, [])
+      worker(Gorila.Worker, [], restart: :transient)
     ]
 
+    IO.puts("Supervise children…")
     supervise children, strategy: :one_for_one
   end
 end 
