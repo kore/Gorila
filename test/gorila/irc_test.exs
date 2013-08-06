@@ -7,6 +7,12 @@ defmodule GorilaIrcTest do
     )
   end
 
+  test "Parse incomplete IRC message" do
+    assert(
+      nil == Gorila.Irc.parse("NICK :kore")
+    )
+  end
+
   test "Parse simple IRC message" do
     assert(
       Gorila.Irc.Message.new(
