@@ -15,6 +15,8 @@ defmodule Gorila.Irc do
 
   defp parseServer(message, server) do
     {_, pattern} = Regex.compile("^(\\S*)!(\\S*)@(\\S*)$")
+    # We cannot use Regexp in guards, this is why we are using a condition
+    # here. Wonder if there is a more beautiful way to do this…
     cond do
       Regex.match?(pattern, server) ->
         [_all, nick, ident, host] = Regex.run(pattern, server)
