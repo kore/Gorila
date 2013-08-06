@@ -1,4 +1,4 @@
-defmodule Gorila.Irc do
+defmodule Gorila.Irc.Message do
   @moduledoc """
   Simple module to parse IRC messages into a record representing them.
   """
@@ -16,7 +16,7 @@ defmodule Gorila.Irc do
     cond do
       Regex.match?(pattern, string) ->
         [_all, server, command, params, text] = Regex.run(pattern, string)
-        message = Gorila.Irc.Message.new(
+        message = Gorila.Irc.Message.Message.new(
           command: command,
           params: Enum.filter(
             String.split(params),
