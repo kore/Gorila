@@ -4,7 +4,6 @@ defmodule GorilaIrcTest do
   test "Parse simple IRC message" do
     assert(
       Gorila.Irc.Message.new(
-        server: "",
         command: "SERVER",
         params: ["test.oulu.fi", "1"],
         text: "[tolsun.oulu.fi] Experimental server"

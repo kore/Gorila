@@ -18,12 +18,14 @@ defmodule Gorila.Irc do
     cond do
       Regex.match?(pattern, server) ->
         [_all, nick, ident, host] = Regex.run(pattern, server)
-        message = message
+        message
           .nick(nick)
           .ident(ident)
           .host(host)
+      String.length(server) == 0 ->
+        message
       true ->
-        message = message.server(server)
+        message.server(server)
     end
   end
 
