@@ -2,7 +2,7 @@ defmodule Gorila.Irc do
 
   def parse(string) when is_binary(string) do
     {_, pattern} = Regex.compile(
-      "\\A(?::(\\S+)\\s*)?([A-Za-z]+|\\d{3})((?:\\s+[^:\\s]\\S*)*)(?:\\s+:(.*?))?\\s*?\\r?\\n$",
+      "\\A(?::(\\S+)\\s*)?([A-Za-z]+|\\d{3})((?:\\s+[^:\\s]\\S*)*)(?:\\s+:(.*?))?\\s*?\\r?\\n",
       "m"
     )
     cond do
@@ -10,7 +10,10 @@ defmodule Gorila.Irc do
         [_all, server, command, params, text] = Regex.run(pattern, string)
         message = Gorila.Irc.Message.new(
           command: command,
-          params: String.split(params),
+          params: Enum.filter(
+            String.split(params),
+            fn (string) -> String.length(string) > 0 end
+          ),
           text: text
         )
         parseServer(message, server)
