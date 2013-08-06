@@ -1,6 +1,12 @@
 defmodule GorilaIrcTest do
   use ExUnit.Case
 
+  test "Parse empty IRC message" do
+    assert(
+      nil == Gorila.Irc.parse("")
+    )
+  end
+
   test "Parse simple IRC message" do
     assert(
       Gorila.Irc.Message.new(
