@@ -1,10 +1,11 @@
 defmodule Gorila do
-  use Application.Behaviour
+  @bahaviour :application
 
-  # See http://elixir-lang.org/docs/stable/Application.Behaviour.html
-  # for more information on OTP Applications
-  def start(_type, _args) do
-    IO.puts("Starting supervisor…")
-    Gorila.Supervisor.start_link
+  def start(_type, args) do
+    :erlang.apply(GorilaServer, :start, args)
+  end
+
+  def stop(_state) do
+    :ok
   end
 end
