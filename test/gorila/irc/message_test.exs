@@ -69,4 +69,18 @@ defmodule GorilaIrcMessageTest do
       Gorila.Irc.Message.parse("CAP LS\r\n")
     )
   end
+
+  test "Test to_binary on simple message" do
+    assert(
+      "PRIVMSG #test :Hello world!" ==
+      to_binary Gorila.Irc.Message.Message.new(
+        nick: "john",
+        ident: "~jsmith",
+        host: "example.com",
+        command: "PRIVMSG",
+        params: ["#test"],
+        text: "Hello world!"
+      )
+    )
+  end
 end

@@ -71,3 +71,13 @@ defmodule Gorila.Irc.Message do
     params: [],
     text: nil
 end
+
+defimpl Binary.Chars, for: Gorila.Irc.Message.Message do
+  def to_binary(message) do
+    "#{message.command} #{List.foldl(
+      message.params,
+      "",
+      fn (x, acc) -> x <> acc end
+    )} :#{message.text}"
+  end
+end
