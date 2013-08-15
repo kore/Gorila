@@ -74,10 +74,10 @@ end
 
 defimpl Binary.Chars, for: Gorila.Irc.Message.Message do
   def to_binary(message) do
-    "#{message.command} #{List.foldl(
+    "#{message.command}#{List.foldl(
       message.params,
       "",
-      fn (param, accumulator) -> param <> accumulator end
+      fn (param, accumulator) -> accumulator <> " " <> param end
     )} :#{message.text}"
   end
 end

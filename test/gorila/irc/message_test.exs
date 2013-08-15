@@ -74,12 +74,30 @@ defmodule GorilaIrcMessageTest do
     assert(
       "PRIVMSG #test :Hello world!" ==
       to_binary Gorila.Irc.Message.Message.new(
-        nick: "john",
-        ident: "~jsmith",
-        host: "example.com",
         command: "PRIVMSG",
         params: ["#test"],
         text: "Hello world!"
+      )
+    )
+  end
+
+  test "Test to_binary on message without text" do
+    assert(
+      "CAP LS :" ==
+      to_binary Gorila.Irc.Message.Message.new(
+        command: "CAP",
+        params: ["LS"]
+      )
+    )
+  end
+
+  test "Test to_binary on message with multiple parameters" do
+    assert(
+      "SERVER test.oulu.fi 1 :[tolsun.oulu.fi] Experimental server" ==
+      to_binary Gorila.Irc.Message.Message.new(
+        command: "SERVER",
+        params: ["test.oulu.fi", "1"],
+        text: "[tolsun.oulu.fi] Experimental server"
       )
     )
   end
