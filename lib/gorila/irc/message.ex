@@ -15,19 +15,33 @@ defmodule Gorila.Irc.Message do
     )
     cond do
       Regex.match?(pattern, string) ->
-        [_all, server, command, params, text] = Regex.run(pattern, string)
-        message = Gorila.Irc.Message.Message.new(
-          command: command,
-          params: Enum.filter(
-            String.split(params),
-            fn (string) -> String.length(string) > 0 end
-          ),
-          text: text
-        )
-        parseServer(message, server)
+        message = createMessage(Regex.run(pattern, string))
       true ->
         nil
     end
+  end
+
+  defp createMessage([_all, server, command, params, text]) do
+    message = Gorila.Irc.Message.Message.new(
+      command: command,
+      params: Enum.filter(
+        String.split(params),
+        fn (string) -> String.length(string) > 0 end
+      ),
+      text: text
+    )
+    parseServer(message, server)
+  end
+
+  defp createMessage([_all, server, command, params]) do
+    message = Gorila.Irc.Message.Message.new(
+      command: command,
+      params: Enum.filter(
+        String.split(params),
+        fn (string) -> String.length(string) > 0 end
+      )
+    )
+    parseServer(message, server)
   end
 
   defp parseServer(message, server) do

@@ -59,4 +59,14 @@ defmodule GorilaIrcMessageTest do
       Gorila.Irc.Message.parse(":john!~jsmith@example.com PRIVMSG #test :Hello world!\r\n")
     )
   end
+
+  test "Parse initial XChat message" do
+    assert(
+      Gorila.Irc.Message.Message.new(
+        command: "CAP",
+        params: ["LS"]
+      ) ==
+      Gorila.Irc.Message.parse("CAP LS\r\n")
+    )
+  end
 end
