@@ -77,7 +77,7 @@ defimpl Binary.Chars, for: Gorila.Irc.Message.Message do
     "#{message.command} #{List.foldl(
       message.params,
       "",
-      fn (x, acc) -> x <> acc end
+      fn (param, accumulator) -> param <> accumulator end
     )} :#{message.text}"
   end
 end
